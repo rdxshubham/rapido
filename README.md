@@ -1,0 +1,2 @@
+# rapido
+Rapido API unofficial
