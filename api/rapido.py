@@ -295,4 +295,5 @@ class Rapido():
 
 
 obj = Rapido()
-obj.create_user('9513101337')
+mobile_num = str(input('Enter Mobile Number: '))
+obj.create_user()
