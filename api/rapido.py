@@ -296,4 +296,4 @@ class Rapido():
 
 obj = Rapido()
 mobile_num = str(input('Enter Mobile Number: '))
-obj.create_user()
+obj.create_user(mobile_num)
