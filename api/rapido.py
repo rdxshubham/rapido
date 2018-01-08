@@ -159,12 +159,12 @@ class Rapido():
                 drop = str(input('Enter Drop: '))
                 pickup_location = geolocator.geocode(pickup)
                 drop_location = geolocator.geocode(drop)
-                print(pickup_location)
+                #print(pickup_location)
                 print(drop_location)
                 break
         except:
             print('Exception - ')
-            pass
+            raise
         payload = "{\"pickupLocation\":{\"addressType\":\"\",\"address\":\"" + pickup_location.address.split(',')[
             0] + "\",\"lat\":" + str(pickup_location.latitude) + ",\"lng\":" + str(
             pickup_location.longitude) + ",\"name\":\"\"},\"dropLocation\":{\"addressType\":\"\",\"address\":\"" + \
@@ -218,7 +218,12 @@ class Rapido():
             if resp['info']['status'] == 'success':
                 print(resp)
                 callback_url = resp['callback_url']
+                order_id = resp['data']['_id']
                 self.get_details(callback_url, device_id, token)
+
+                yes_or_no = input('Do you want to cancel ride? 1 - Yes | 0 - No ')
+                if yes_or_no == 1:
+                    self.cancel_booking(order_id, cust_id, token, device_id, pickup_location)
                 break
 
     def book_ride(self, device_id, token, service_id, pickup_location, drop_location, cust_id, request_id):
@@ -292,6 +297,32 @@ class Rapido():
 
         print(response)
 
+    def cancel_booking(self, order_id, cust_id, token, device_id, pickup_location):
+
+        url = "https://auth.rapido.bike/rapido/rapido/cancel"
+
+        payload = "{\"type\":\"cancelled\",\"orderId\":\""+order_id+"\",\"cancelReason\":\"I expected a shorter wait time\",\"locationDetails\":{\"lat\":"+str(pickup_location.latitude)+",\"lng\":"+str(pickup_location.longitude)+"},\"otherReason\":\"\",\"userId\":\""+cust_id+"\"}"
+        headers = {
+            'deviceid': device_id,
+            'latitude': self.latitude,
+            'longitude': self.longitude,
+            'appid': "2",
+            'currentdatetime': self.current_datetime,
+            'internet': "0",
+            'appversion': "73",
+            'Authorization': "Bearer " + token,
+            'Content-Type': "application/json; charset=UTF-8",
+            'Content-Length': "615",
+            'Host': self.host,
+            'Connection': "Keep-Alive",
+            'Accept-Encoding': "gzip",
+            'User-Agent': "okhttp/3.6.0",
+            'Cache-Control': "no-cache"
+        }
+
+        response = requests.request("POST", url, data=payload, headers=headers)
+
+        print(response.text)
 
 
 obj = Rapido()
