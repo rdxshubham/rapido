@@ -209,11 +209,16 @@ class Rapido():
         print(amount_lst)
         service_user_selection = int(input('Select Service : '))
         final_service_id = service_id[service_user_selection]
-
+        wallet_type = ['rapido', 'paytm', 'cash']
+        print('Select your wallet type as per INDEX of list')
+        for wall in range(0, len(wallet_type)):
+            print('%i - %s' % (wall, wallet_type[wall]))
+        wallet_type_index = int(input('Select from above: '))
+        wallet_selected = wallet_type[wallet_type_index]
         print(response)
         while 1:
             resp = self.book_ride(device_id, token, final_service_id, pickup_location, drop_location, cust_id,
-                                  request_id)
+                                  request_id, wallet_selected)
             print(resp)
             if resp['info']['status'] == 'success':
                 print(resp)
@@ -226,11 +231,11 @@ class Rapido():
                     self.cancel_booking(order_id, cust_id, token, device_id, pickup_location)
                 break
 
-    def book_ride(self, device_id, token, service_id, pickup_location, drop_location, cust_id, request_id):
+    def book_ride(self, device_id, token, service_id, pickup_location, drop_location, cust_id, request_id, wallet_selected):
 
         url = "https://auth.rapido.bike/rapido/rapido/book"
 
-        payload = "{\"type\":\"booking\",\"userType\":\"customer\",\"serviceType\":\"" + service_id + "\",\"deviceId\":\"" + device_id + "\",\"paymentType\":\"paytm\",\"couponCode\":\"\",\"dropLocation\":{\"lat\":" + str(
+        payload = "{\"type\":\"booking\",\"userType\":\"customer\",\"serviceType\":\"" + service_id + "\",\"deviceId\":\"" + device_id + "\",\"paymentType\":\""+wallet_selected+"\",\"couponCode\":\"\",\"dropLocation\":{\"lat\":" + str(
             drop_location.latitude) + ",\"lng\":" + str(drop_location.longitude) + ",\"address\":\"" + \
                   drop_location.address.split(',')[0] + "\"},\"pickupLocation\":{\"lat\":" + str(
             pickup_location.latitude) + ",\"lng\":" + str(pickup_location.longitude) + ",\"address\":\"" + \
