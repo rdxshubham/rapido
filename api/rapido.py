@@ -166,11 +166,13 @@ class Rapido():
         except:
             print('Exception - ')
             raise
+
         payload = "{\"pickupLocation\":{\"addressType\":\"\",\"address\":\"" + pickup_location.address.split(',')[
             0] + "\",\"lat\":" + str(pickup_location.latitude) + ",\"lng\":" + str(
             pickup_location.longitude) + ",\"name\":\"\"},\"dropLocation\":{\"addressType\":\"\",\"address\":\"" + \
                   drop_location.address.split(',')[0] + "\",\"lat\":" + str(drop_location.latitude) + ",\"lng\":" + str(
             drop_location.longitude) + ",\"name\":\"" + drop + "\"},\"serviceType\":\"57370b61a6855d70057417d1\",\"customer\":\"" + cust_id + "\",\"couponCode\":\"\",\"paymentType\":\"paytm\"}"
+
         headers = {
             'deviceid': device_id,
             'latitude': self.latitude,
@@ -190,6 +192,7 @@ class Rapido():
         }
 
         response = requests.post(url, data=payload, headers=headers).json()
+
         print(response['info']['message'])
         request_id = response['data']['requestId']
         time_in_min = response['data']['timeInMts']
