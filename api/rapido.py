@@ -91,6 +91,7 @@ class Rapido():
         current_timestamp = int(round(time.time() * 1000))
         payload = "{\"otp\":\"" + otp + "\",\"deviceDetails\":{\"deviceId\":\"" + device_id + "\",\"appId\":\"2\",\"internet\":\"" + internet + "\",\"carrier\":\"" + carrier + "\",\"manufacturer\":\"" + manufacturer + "\",\"model\":\"" + model + "\",\"firebaseToken\":\"cQ8bTYANjVE:APA91bGQ5LcZsHxANpKRAFTkXiz1Xn0btXb479CttCKAPNZTUrzCbqkWZoNK2S_shEg6UUio3J2r3bNa4v552mSsC14NLz3e3gxIvTxI7RLy-z8b0fnyVrwpcGS1qghngEoEAsU4BbSf\",\"timeStamp\":" + str(
             current_timestamp) + "}}"
+
         headers = {
             'deviceid': device_id,
             'latitude': self.latitude,
