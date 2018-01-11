@@ -207,6 +207,7 @@ class Rapido():
         print('service id index - 0 or 1 n so on')
         print(service_id)
         print(amount_lst)
+
         service_user_selection = int(input('Select Service : '))
         final_service_id = service_id[service_user_selection]
         wallet_type = ['rapido', 'paytm', 'cash']
