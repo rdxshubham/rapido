@@ -247,6 +247,7 @@ class Rapido():
                   pickup_location.address.split(',')[0] + "\"},\"currentLocation\":{\"lat\":" + str(
             pickup_location.latitude) + ",\"lng\":" + str(
             pickup_location.latitude) + ",\"address\":\"\"},\"userId\":\"" + cust_id + "\",\"requestId\":\"" + request_id + "\"}"
+
         headers = {
             'deviceid': device_id,
             'latitude': self.latitude,
