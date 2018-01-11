@@ -307,6 +307,7 @@ class Rapido():
 
         url = "https://auth.rapido.bike/rapido/rapido/cancel"
 
+
         payload = "{\"type\":\"cancelled\",\"orderId\":\""+order_id+"\",\"cancelReason\":\"I expected a shorter wait time\",\"locationDetails\":{\"lat\":"+str(pickup_location.latitude)+",\"lng\":"+str(pickup_location.longitude)+"},\"otherReason\":\"\",\"userId\":\""+cust_id+"\"}"
         headers = {
             'deviceid': device_id,
